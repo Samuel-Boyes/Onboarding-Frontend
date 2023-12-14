@@ -1,14 +1,17 @@
-﻿import React, { Component, useEffect } from 'react';
+﻿import React from 'react';
 import useGetRequests from '../hooks/APIHook';
+import AddStoreModal from './AddStoreModal';
+import EditStoreModal from './EditStoreModal';
 
 function StoresContainer() {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const stores = useGetRequests("/api/Store")
+    const localUrl = "/api/Store"
+    const [ data, loading, error, refetch ] = useGetRequests(localUrl)
 
-    console.log('stores',stores)
+    console.log('data', data)
+    //console.log(APIService.postObject(localUrl, { "name": 'namedelete', "address": "adrdelete" }))
 
     return (
-        <><button>Add</button>
+        <><AddStoreModal refetch={refetch} />
             <table className="table table-striped" aria-labelledby="tableLabel">
                 <thead>
                     <tr>
@@ -19,10 +22,12 @@ function StoresContainer() {
                     </tr>
                 </thead>
                 <tbody>
-                    {stores.data ? stores?.data.map(store =>
+                    {data ? data?.map(store =>
                         <tr key={store.id}>
                             <td>{store.name}</td>
                             <td>{store.address}</td>
+                            <td><EditStoreModal refetch={refetch} /></td>
+                            <td></td>
                         </tr>
                     ) : <tr></tr>
                     }

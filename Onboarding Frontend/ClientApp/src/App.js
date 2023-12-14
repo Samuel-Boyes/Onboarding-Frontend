@@ -17,7 +17,6 @@ export default class App extends Component {
             return <Route key={index} {...rest} element={element} />;
           })}
         </Routes>
-        <StoresContainer/>
       </Layout>
     );
   }

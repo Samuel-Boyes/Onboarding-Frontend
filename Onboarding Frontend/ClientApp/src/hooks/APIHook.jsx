@@ -5,6 +5,7 @@ const useGetRequests = (url, auth = false) => {
     const [data, setData] = useState();
     const [loading, setLoading] = useState();
     const [error, setError] = useState();
+    const [shouldRefetch, refetch] = useState(false)
 
     useEffect(() => {
         setLoading(true)
@@ -16,8 +17,8 @@ const useGetRequests = (url, auth = false) => {
                 const requestOptions = { method: "GET", mode: "cors", credentials: "same-origin" }
                 const res = await fetch("https://localhost:7052" + url, requestOptions)
                 const resJson = await res.json()
-                console.log("response & responseJson:", res, resJson)
                 const data = resJson;
+                console.log("response & data from " + "https://localhost:7052" + url, res, data)
                 setData(data);
             } catch (err) {
                 console.log(err)
@@ -27,8 +28,8 @@ const useGetRequests = (url, auth = false) => {
         }
         fetchData();
         setLoading(false)
-    }, [url, auth])
-    return { data, loading, error };
+    }, [url, auth, shouldRefetch])
+    return [ data, loading, error, refetch ];
 }
 
 export default useGetRequests
