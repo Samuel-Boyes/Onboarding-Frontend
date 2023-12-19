@@ -1,11 +1,11 @@
 ﻿import React from 'react';
-import useGetRequests from '../hooks/APIHook';
+import useGetStoresRequests from '../hooks/StoresAPIHook';
 import AddStoreModal from './AddStoreModal';
 import EditStoreModal from './EditStoreModal';
 
 function StoresContainer() {
     const localUrl = "/api/Store"
-    const [ data, loading, error, refetch ] = useGetRequests(localUrl)
+    const [ data, loading, error, refetch ] = useGetStoresRequests(localUrl)
 
     console.log('data', data)
     //console.log(APIService.postObject(localUrl, { "name": 'namedelete', "address": "adrdelete" }))

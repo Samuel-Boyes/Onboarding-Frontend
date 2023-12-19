@@ -1,7 +1,7 @@
 ﻿import { useEffect, useState } from "react";
 
 
-const useGetRequests = (url, auth = false) => {
+const useGetStoresRequests = (url, auth = false) => {
     const [data, setData] = useState();
     const [loading, setLoading] = useState();
     const [error, setError] = useState();
@@ -32,5 +32,5 @@ const useGetRequests = (url, auth = false) => {
     return [ data, loading, error, refetch ];
 }
 
-export default useGetRequests
+export default useGetStoresRequests
 
