@@ -22,13 +22,19 @@ function StoresContainer() {
                     </tr>
                 </thead>
                 <tbody>
-                    {data ? data?.map(store =>
-                        <tr key={store.id}>
+                    {data ? data?.map((store, index) => {
+                        console.log('LOG 1',store, index)
+                        return (<tr key={store.id}>
                             <td>{store.name}</td>
                             <td>{store.address}</td>
-                            <td><EditStoreModal refetch={refetch} /></td>
-                            <td></td>
+                            <td><EditStoreModal
+                                objId={store.id}
+                                refetch={refetch}
+                            /></td>
+                            <td>{data[index].name},{index},{data[index].address}</td>
                         </tr>
+                        )
+                    }
                     ) : <tr></tr>
                     }
                 </tbody>

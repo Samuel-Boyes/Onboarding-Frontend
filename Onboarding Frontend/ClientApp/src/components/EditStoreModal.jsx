@@ -2,19 +2,23 @@
 import { Button, Header, Modal } from 'semantic-ui-react'
 import APIService from '../services/APIService';
 
-function EditStoreModal({ refetch }) {
-    const id = 1
+function EditStoreModal(
+         objId ,
+    { refetch }
+    ) {
+
+    console.log('editStoreModal objId',objId)
     const localUrl = "/api/Store"
     const [open, setOpen] = useState(false)
-    const [name, setName] = useState("");
-    const [address, setAddress] = useState("");
+    const [name, setName] = useState('');
+    const [address, setAddress] = useState('');
     const [hasError, setHasError] = useState(false)
 
 
     function onEdit() {
         if (name !== "" && address !== "") {
             setHasError(false)
-            const res = APIService.patchObject(localUrl, {"id": id, "name": name, "address": address })
+            const res = APIService.patchObject(localUrl, {objId, "name": name, "address": address })
             refetch()
             setOpen(false)
         } else {
