@@ -12,9 +12,10 @@ function AddStoreModal({ refetch }) {
     function onAdd() {
         if (name !== "" && address !== "") {
             setHasError(false)
-            const res = APIService.postObject(localUrl, { "name": name, "address": address })
-            refetch()
-            setOpen(false)
+            APIService.postObject(localUrl, { "name": name, "address": address }).then(() => {
+                refetch()
+                setOpen(false)
+            })
         } else {
             setHasError(true)
         }
@@ -24,6 +25,7 @@ function AddStoreModal({ refetch }) {
         <Modal
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
+            size='small'
             open={open}
             trigger={<Button>Add</Button>}
         >

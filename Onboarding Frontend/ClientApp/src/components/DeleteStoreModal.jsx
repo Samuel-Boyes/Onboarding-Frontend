@@ -3,27 +3,21 @@ import { Button, Header, Modal } from 'semantic-ui-react'
 import APIService from '../services/APIService';
 import { currentStoreData } from './Stores';
 
-function EditStoreModal(
+function DeleteStoreModal(
     { objId , refetch }
-    ) {
+) {
 
     const data = useContext(currentStoreData).filter(store => store.id === objId)[0]; //need to memoize this?
     const localUrl = "/api/Store"
     const [open, setOpen] = useState(false)
     const [name, setName] = useState(data.name);
     const [address, setAddress] = useState(data.address);
-    const [hasError, setHasError] = useState(false)
 
-    function onEdit() {
-        if (name !== "" && address !== "") {
-            setHasError(false)
-            APIService.patchObject(localUrl, { "id": objId, "name": name, "address": address }).then(() => {
+    function onDelete() {
+        APIService.deleteObject(localUrl, objId).then(() => {
                 refetch()
                 setOpen(false)
             })
-        } else {
-            setHasError(true)
-        }
     }
 
     return (
@@ -31,29 +25,21 @@ function EditStoreModal(
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
-            trigger={<Button color='yellow'>Edit</Button>}
+            trigger={<Button color='red'>Delete</Button>}
         >
             <Modal.Header>Create Store</Modal.Header>
             <Modal.Content>
-                <Header>Name</Header>
-                <input type="text" value={name} onChange={(event) => setName(event.target.value)} />
-                <Header>Address</Header>
-                <input type="text" value={address} onChange={(event) => setAddress(event.target.value)} />
-                {hasError &&
-                    <div style={{ color: "red" }}>
-                        Both Name and Address are required.
-                    </div>
-                }
+                <p>Are you sure you want to delete {data.name}?</p>
             </Modal.Content>
             <Modal.Actions>
                 <Button color='black' onClick={() => setOpen(false)}>
-                    Close
+                    No
                 </Button>
                 <Button
-                    content="Edit"
+                    content="Yes"
                     labelPosition='right'
                     icon='checkmark'
-                    onClick={() => onEdit()}
+                    onClick={() => onDelete()}
                     positive
                 />
             </Modal.Actions>
@@ -61,4 +47,4 @@ function EditStoreModal(
     )
 }
 
-export default EditStoreModal;
+export default DeleteStoreModal;
