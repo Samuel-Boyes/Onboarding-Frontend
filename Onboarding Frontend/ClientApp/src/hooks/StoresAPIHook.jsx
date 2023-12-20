@@ -9,6 +9,7 @@ const useGetStoresRequests = (url, auth = false) => {
 
     useEffect(() => {
         setLoading(true)
+        refetch(false)
         setError(false)
         const fetchData = async () => {
             try {
