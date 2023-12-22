@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import useGetStoresRequests from '../hooks/StoresAPIHook';
+import useGetRequests from '../../hooks/APIHook';
 import AddStoreModal from './AddStoreModal';
 import DeleteStoreModal from './DeleteStoreModal';
 import EditStoreModal from './EditStoreModal';
@@ -8,10 +8,7 @@ export const currentStoreData = React.createContext([])
 
 function StoresContainer() {
     const localUrl = "/api/Store"
-    const [data, loading, error, refetch] = useGetStoresRequests(localUrl)
-
-    //console.log('data', data)
-    //console.log(APIService.postObject(localUrl, { "name": 'namedelete', "address": "adrdelete" }))
+    const [data, loading, error, refetch] = useGetRequests(localUrl)
 
     return (
         <><AddStoreModal refetch={refetch} />
@@ -26,7 +23,7 @@ function StoresContainer() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data ? data?.map((store, index) => {
+                        {data ? data?.map((store) => {
                             return (<tr key={store.id}>
                                 <td>{store.name}</td>
                                 <td>{store.address}</td>

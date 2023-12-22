@@ -1,6 +1,6 @@
 ﻿import { useState } from 'react'
 import { Button, Header, Modal } from 'semantic-ui-react'
-import APIService from '../services/APIService';
+import APIService from '../../services/APIService';
 
 function AddStoreModal({ refetch }) {
     const localUrl = "/api/Store"

@@ -1,23 +1,18 @@
-﻿import { useState, useContext } from 'react'
+﻿import { useState } from 'react'
 import { Button, Header, Modal } from 'semantic-ui-react'
-import APIService from '../services/APIService';
-import { currentStoreData } from './Stores';
+import APIService from '../../services/APIService';
 
-function EditStoreModal(
-    { objId , refetch }
-    ) {
-
-    const data = useContext(currentStoreData).filter(store => store.id === objId)[0]; //need to memoize this?
-    const localUrl = "/api/Store"
+function AddCustomerModal({ refetch }) {
+    const localUrl = "/api/Customer"
     const [open, setOpen] = useState(false)
-    const [name, setName] = useState(data.name);
-    const [address, setAddress] = useState(data.address);
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
     const [hasError, setHasError] = useState(false)
 
-    function onEdit() {
+    function onAdd() {
         if (name !== "" && address !== "") {
             setHasError(false)
-            APIService.patchObject(localUrl, { "id": objId, "name": name, "address": address }).then(() => {
+            APIService.postObject(localUrl, { "name": name, "address": address }).then(() => {
                 refetch()
                 setOpen(false)
             })
@@ -30,8 +25,9 @@ function EditStoreModal(
         <Modal
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
+            size='small'
             open={open}
-            trigger={<Button color='yellow'>Edit</Button>}
+            trigger={<Button>Add</Button>}
         >
             <Modal.Header>Create Store</Modal.Header>
             <Modal.Content>
@@ -50,10 +46,10 @@ function EditStoreModal(
                     Close
                 </Button>
                 <Button
-                    content="Edit"
+                    content="Add"
                     labelPosition='right'
                     icon='checkmark'
-                    onClick={() => onEdit()}
+                    onClick={() => onAdd()}
                     positive
                 />
             </Modal.Actions>
@@ -61,4 +57,4 @@ function EditStoreModal(
     )
 }
 
-export default EditStoreModal;
+export default AddCustomerModal;

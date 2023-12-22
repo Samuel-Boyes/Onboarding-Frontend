@@ -1,14 +1,14 @@
 ﻿import { useState, useContext } from 'react'
 import { Button, Header, Modal } from 'semantic-ui-react'
-import APIService from '../services/APIService';
-import { currentStoreData } from './Stores';
+import APIService from '../../services/APIService';
+import { currentSaleData } from './Sales';
 
-function DeleteStoreModal(
+function DeleteSaleModal(
     { objId , refetch }
 ) {
 
-    const data = useContext(currentStoreData).filter(store => store.id === objId)[0]; //need to memoize this?
-    const localUrl = "/api/Store"
+    const data = useContext(currentSaleData).filter(store => store.id === objId)[0]; //need to memoize this?
+    const localUrl = "/api/Sale"
     const [open, setOpen] = useState(false)
     const [name, setName] = useState(data.name);
     const [address, setAddress] = useState(data.address);
@@ -27,7 +27,7 @@ function DeleteStoreModal(
             open={open}
             trigger={<Button color='red'>Delete</Button>}
         >
-            <Modal.Header>Create Store</Modal.Header>
+            <Modal.Header>Delete Sale</Modal.Header>
             <Modal.Content>
                 <p>Are you sure you want to delete {data.name}?</p>
             </Modal.Content>
@@ -47,4 +47,4 @@ function DeleteStoreModal(
     )
 }
 
-export default DeleteStoreModal;
+export default DeleteSaleModal;
