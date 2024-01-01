@@ -7,10 +7,10 @@ function DeleteSaleModal(
     { objId , refetch }
 ) {
 
-    const data = useContext(currentSaleData).filter(store => store.id === objId)[0]; //need to memoize this?
+    const data = useContext(currentSaleData).filter(sale => sale.id === objId)[0]; //need to memoize this?
     const localUrl = "/api/Sale"
     const [open, setOpen] = useState(false)
-    const [name, setName] = useState(data.name);
+    const [name, setName] = useState(data.id);
     const [address, setAddress] = useState(data.address);
 
     function onDelete() {

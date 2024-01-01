@@ -7,7 +7,7 @@ function DeleteProductModal(
     { objId , refetch }
 ) {
 
-    const data = useContext(currentProductData).filter(store => store.id === objId)[0]; //need to memoize this?
+    const data = useContext(currentProductData).filter(product => product.id === objId)[0]; //need to memoize this?
     const localUrl = "/api/Product"
     const [open, setOpen] = useState(false)
 

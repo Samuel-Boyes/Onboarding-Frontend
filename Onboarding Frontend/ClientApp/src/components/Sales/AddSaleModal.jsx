@@ -1,18 +1,25 @@
-﻿import { useState } from 'react'
+﻿import { useState, useContext } from 'react'
 import { Button, Header, Modal } from 'semantic-ui-react'
 import APIService from '../../services/APIService';
+import { currentRelatedData } from './Sales';
 
 function AddSaleModal({ refetch }) {
+
+    const { customers, products, stores } = useContext(currentRelatedData);
     const localUrl = "/api/Sale"
     const [open, setOpen] = useState(false)
-    const [name, setName] = useState("");
-    const [address, setAddress] = useState("");
+    const [customerId, setCustomerId] = useState("")
+    const [storeId, setStoreId] = useState("")
+    const [productId, setProductId] = useState("")
+    const [dateSold, setDateSold] = useState("")
     const [hasError, setHasError] = useState(false)
 
+    //console.log('data',customers, products, stores)
+
     function onAdd() {
-        if (name !== "" && address !== "") {
+        if (customerId !== "" && storeId !== "" && productId !== "" && dateSold !== "") {
             setHasError(false)
-            APIService.postObject(localUrl, { "name": name, "address": address }).then(() => {
+            APIService.postObject(localUrl, { "customerId": customerId, "storeId": storeId, "productId": productId, "dateSold": dateSold }).then(() => {
                 refetch()
                 setOpen(false)
             })
@@ -31,13 +38,32 @@ function AddSaleModal({ refetch }) {
         >
             <Modal.Header>Create Sale</Modal.Header>
             <Modal.Content>
-                <Header>Name</Header>
-                <input type="text" value={name} onChange={(event) => setName(event.target.value)} />
-                <Header>Address</Header>
-                <input type="text" value={address} onChange={(event) => setAddress(event.target.value)} />
+                <Header>Date Sold</Header>
+                <input type="datetime-local" value={dateSold} onChange={(event) => setDateSold(event.target.value)} />
+                <Header>Customer</Header>
+                <select name='customer' onChange={(event) => setCustomerId(event.target.value)}>
+                    <option key={-1} value={""} label="Select a Customer" />
+                    {customers?.map((item) =>
+                        <option key={item.id} value={item.id} label={item.name} />
+                    )}
+                </select>
+                <Header>Store</Header>
+                <select name='store' onChange={(event) => setStoreId(event.target.value)}>
+                    <option key={-1} value={""} label="Select a Store" />
+                    {stores?.map((item) =>
+                        <option key={item.id} value={item.id} label={item.name} />
+                    )}
+                </select>
+                <Header>Product</Header>
+                <select name='product' onChange={(event) => setProductId(event.target.value)}>
+                    <option key={-1} value={""} label="Select a Product" />
+                    {products?.map((item) =>
+                        <option key={item.id} value={item.id} label={item.name} />
+                    )}
+                </select>
                 {hasError &&
                     <div style={{ color: "red" }}>
-                        Both Name and Address are required.
+                        Date Sold, Customer, Store and Product are required.
                     </div>
                 }
             </Modal.Content>

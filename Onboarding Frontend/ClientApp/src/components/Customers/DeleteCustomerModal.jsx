@@ -7,7 +7,7 @@ function DeleteCustomerModal(
     { objId , refetch }
 ) {
 
-    const data = useContext(currentCustomerData).filter(store => store.id === objId)[0]; //need to memoize this?
+    const data = useContext(currentCustomerData).filter(customer => customer.id === objId)[0]; //need to memoize this?
     const localUrl = "/api/Customer"
     const [open, setOpen] = useState(false)
     const [name, setName] = useState(data.name);

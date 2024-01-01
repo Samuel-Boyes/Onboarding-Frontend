@@ -7,7 +7,7 @@ function EditSaleModal(
     { objId , refetch }
     ) {
 
-    const data = useContext(currentSaleData).filter(store => store.id === objId)[0]; //need to memoize this?
+    const data = useContext(currentSaleData).filter(sale => sale.id === objId)[0]; //need to memoize this?
     const localUrl = "/api/Sale"
     const [open, setOpen] = useState(false)
     const [name, setName] = useState(data.name);
