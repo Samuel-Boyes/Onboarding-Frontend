@@ -1,23 +1,27 @@
 ﻿import { useState, useContext } from 'react'
 import { Button, Header, Modal } from 'semantic-ui-react'
 import APIService from '../../services/APIService';
-import { currentSaleData } from './Sales';
+import { currentRelatedData, currentSaleData } from './Sales';
 
 function EditSaleModal(
     { objId , refetch }
-    ) {
+) {
+
+    const { customers, products, stores } = useContext(currentRelatedData);
 
     const data = useContext(currentSaleData).filter(sale => sale.id === objId)[0]; //need to memoize this?
     const localUrl = "/api/Sale"
     const [open, setOpen] = useState(false)
-    const [name, setName] = useState(data.name);
-    const [address, setAddress] = useState(data.address);
+    const [customerId, setCustomerId] = useState(data.customerId)
+    const [storeId, setStoreId] = useState(data.storeId)
+    const [productId, setProductId] = useState(data.productId)
+    const [dateSold, setDateSold] = useState(data.dateSold)
     const [hasError, setHasError] = useState(false)
 
     function onEdit() {
-        if (name !== "" && address !== "") {
+        if (customerId !== "" && storeId !== "" && productId !== "" && dateSold !== "") {
             setHasError(false)
-            APIService.patchObject(localUrl, { "id": objId, "name": name, "address": address }).then(() => {
+            APIService.patchObject(localUrl, { "id": objId, "customerId": customerId, "storeId": storeId, "productId": productId, "dateSold": dateSold }).then(() => {
                 refetch()
                 setOpen(false)
             })
@@ -35,13 +39,29 @@ function EditSaleModal(
         >
             <Modal.Header>Edit Sale</Modal.Header>
             <Modal.Content>
-                <Header>Name</Header>
-                <input type="text" value={name} onChange={(event) => setName(event.target.value)} />
-                <Header>Address</Header>
-                <input type="text" value={address} onChange={(event) => setAddress(event.target.value)} />
+                <Header>Date Sold</Header>
+                <input type="datetime-local" value={dateSold} onChange={(event) => setDateSold(event.target.value)} />
+                <Header>Customer</Header>
+                <select name='customer' defaultValue={customerId} onChange={(event) => setCustomerId(event.target.value)}>
+                    {customers?.map((item) =>
+                        <option key={item.id} value={item.id} label={item.name} />
+                    )}
+                </select>
+                <Header>Store</Header>
+                <select name='store' defaultValue={storeId} onChange={(event) => setStoreId(event.target.value)}>
+                    {stores?.map((item) =>
+                        <option key={item.id} value={item.id} label={item.name} />
+                    )}
+                </select>
+                <Header>Product</Header>
+                <select name='product' defaultValue={productId} onChange={(event) => setProductId(event.target.value)}>
+                    {products?.map((item) =>
+                        <option key={item.id} value={item.id} label={item.name} />
+                    )}
+                </select>
                 {hasError &&
                     <div style={{ color: "red" }}>
-                        Both Name and Address are required.
+                        Date Sold, Customer, Store and Product are required.
                     </div>
                 }
             </Modal.Content>
