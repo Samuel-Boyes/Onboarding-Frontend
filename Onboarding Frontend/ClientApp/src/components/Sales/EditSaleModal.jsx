@@ -47,15 +47,15 @@ function EditSaleModal(
                         <option key={item.id} value={item.id} label={item.name} />
                     )}
                 </select>
-                <Header>Store</Header>
-                <select name='store' defaultValue={storeId} onChange={(event) => setStoreId(event.target.value)}>
-                    {stores?.map((item) =>
-                        <option key={item.id} value={item.id} label={item.name} />
-                    )}
-                </select>
                 <Header>Product</Header>
                 <select name='product' defaultValue={productId} onChange={(event) => setProductId(event.target.value)}>
                     {products?.map((item) =>
+                        <option key={item.id} value={item.id} label={item.name} />
+                    )}
+                </select>
+                <Header>Store</Header>
+                <select name='store' defaultValue={storeId} onChange={(event) => setStoreId(event.target.value)}>
+                    {stores?.map((item) =>
                         <option key={item.id} value={item.id} label={item.name} />
                     )}
                 </select>

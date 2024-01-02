@@ -47,17 +47,17 @@ function AddSaleModal({ refetch }) {
                         <option key={item.id} value={item.id} label={item.name} />
                     )}
                 </select>
-                <Header>Store</Header>
-                <select name='store' onChange={(event) => setStoreId(event.target.value)}>
-                    <option key={-1} value={""} label="Select a Store" />
-                    {stores?.map((item) =>
-                        <option key={item.id} value={item.id} label={item.name} />
-                    )}
-                </select>
                 <Header>Product</Header>
                 <select name='product' onChange={(event) => setProductId(event.target.value)}>
                     <option key={-1} value={""} label="Select a Product" />
                     {products?.map((item) =>
+                        <option key={item.id} value={item.id} label={item.name} />
+                    )}
+                </select>
+                <Header>Store</Header>
+                <select name='store' onChange={(event) => setStoreId(event.target.value)}>
+                    <option key={-1} value={""} label="Select a Store" />
+                    {stores?.map((item) =>
                         <option key={item.id} value={item.id} label={item.name} />
                     )}
                 </select>
