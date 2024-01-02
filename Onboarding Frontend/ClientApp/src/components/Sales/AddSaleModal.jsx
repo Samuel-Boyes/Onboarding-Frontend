@@ -34,7 +34,7 @@ function AddSaleModal({ refetch }) {
             onOpen={() => setOpen(true)}
             size='small'
             open={open}
-            trigger={<Button>Add</Button>}
+            trigger={<Button color='blue'>Add Sale</Button>}
         >
             <Modal.Header>Create Sale</Modal.Header>
             <Modal.Content>

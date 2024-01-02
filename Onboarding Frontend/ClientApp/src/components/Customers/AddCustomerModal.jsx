@@ -27,7 +27,7 @@ function AddCustomerModal({ refetch }) {
             onOpen={() => setOpen(true)}
             size='small'
             open={open}
-            trigger={<Button>Add</Button>}
+            trigger={<Button color='blue'>Add Customer</Button>}
         >
             <Modal.Header>Create Store</Modal.Header>
             <Modal.Content>

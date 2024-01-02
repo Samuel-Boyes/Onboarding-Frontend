@@ -2,6 +2,9 @@
 import { Button, Header, Modal } from 'semantic-ui-react'
 import APIService from '../../services/APIService';
 import { currentStoreData } from './Stores';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ReactDOM from 'react-dom';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function DeleteStoreModal(
     { objId , refetch }
@@ -25,7 +28,7 @@ function DeleteStoreModal(
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
-            trigger={<Button color='red'>Delete</Button>}
+            trigger={<Button color='red'>Delete <FontAwesomeIcon icon={faTrash} /></Button>}
         >
             <Modal.Header>Delete Store</Modal.Header>
             <Modal.Content>

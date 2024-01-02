@@ -2,6 +2,9 @@
 import { Button, Header, Modal } from 'semantic-ui-react'
 import APIService from '../../services/APIService';
 import { currentStoreData } from './Stores';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ReactDOM from 'react-dom';
+import { faSquarePen } from '@fortawesome/free-solid-svg-icons';
 
 function EditStoreModal(
     { objId , refetch }
@@ -31,7 +34,7 @@ function EditStoreModal(
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
-            trigger={<Button color='yellow'>Edit</Button>}
+            trigger={<Button color='yellow'>Edit <FontAwesomeIcon icon={faSquarePen} /></Button>}
         >
             <Modal.Header>Edit Store</Modal.Header>
             <Modal.Content>
