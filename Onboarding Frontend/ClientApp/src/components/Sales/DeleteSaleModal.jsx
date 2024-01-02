@@ -29,7 +29,7 @@ function DeleteSaleModal(
         >
             <Modal.Header>Delete Sale</Modal.Header>
             <Modal.Content>
-                <p>Are you sure you want to delete {data.name}?</p>
+                <p>Are you sure you want to delete sale #{data.id}?</p>
             </Modal.Content>
             <Modal.Actions>
                 <Button color='black' onClick={() => setOpen(false)}>
