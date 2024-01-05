@@ -1,8 +1,7 @@
 ﻿
 const APIService = {
     postObject: async function (url, model, auth = false) {
-        //need to update to fetch env stored API url
-        const combinedUrl = "https://localhost:7052" + url
+        const combinedUrl = process.env.REACT_APP_API_URL + url
         try {
             console.log("posting data to: " + combinedUrl, model)
             const requestOptions = {
@@ -26,7 +25,7 @@ const APIService = {
     },
 
     patchObject: async function (url, object, auth = false) {
-        const combinedUrl = "https://localhost:7052" + url
+        const combinedUrl = process.env.REACT_APP_API_URL + url
         try {
             console.log("patching data to: " + combinedUrl, object)
             const requestOptions = {
@@ -50,7 +49,7 @@ const APIService = {
     },
 
     deleteObject: async function (url, id, auth = false) {
-        const combinedUrl = "https://localhost:7052" + url + '/' + id
+        const combinedUrl = process.env.REACT_APP_API_URL + url + '/' + id
         try {
             console.log("deleting data at: " + combinedUrl)
             const requestOptions = {
@@ -72,7 +71,7 @@ const APIService = {
     },
 
     getObject: async function (url, id, auth = false) {
-        const combinedUrl = "https://localhost:7052" + url + '/' + id
+        const combinedUrl = process.env.REACT_APP_API_URL + url + '/' + id
         try {
             console.log("getting data from: " + combinedUrl)
             const requestOptions = {
@@ -95,7 +94,7 @@ const APIService = {
     },
 
     getAllObject: async function (url, auth = false) {
-        const combinedUrl = "https://localhost:7052" + url
+        const combinedUrl = process.env.REACT_APP_API_URL + url
         try {
             console.log("getting all data from: " + combinedUrl)
             const requestOptions = {
